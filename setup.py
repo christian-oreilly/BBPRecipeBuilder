@@ -6,7 +6,7 @@ NAME = "BBPRecipeBuilder"
 DESCRIPTION = "Code to write an XML recipe for the BBP Brain Builder."
 AUTHOR = "Christian O'Reilly"
 AUTHOR_EMAIL = "christian.oreilly@epfl.ch"
-VERSION = “0.0.1”
+VERSION = "0.0.1"
 
 def is_package(path):
     return (
