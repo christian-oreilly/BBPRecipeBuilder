@@ -1,7 +1,7 @@
 from distutils.core import setup
 import os
 
-PACKAGE = “BBPRecipeBuilder”
+PACKAGE = "BBPRecipeBuilder"
 NAME = "BBPRecipeBuilder"
 DESCRIPTION = “Code to write an XML recipe for the BBP Brain Builder.“
 AUTHOR = "Christian O'Reilly"
