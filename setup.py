@@ -3,7 +3,7 @@ import os
 
 PACKAGE = "BBPRecipeBuilder"
 NAME = "BBPRecipeBuilder"
-DESCRIPTION = “Code to write an XML recipe for the BBP Brain Builder.“
+DESCRIPTION = "Code to write an XML recipe for the BBP Brain Builder."
 AUTHOR = "Christian O'Reilly"
 AUTHOR_EMAIL = "christian.oreilly@epfl.ch"
 VERSION = “0.0.1”
