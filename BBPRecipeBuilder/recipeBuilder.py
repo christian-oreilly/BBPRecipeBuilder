@@ -32,7 +32,7 @@ class StructuralType:
     def __str__(self):    
         pre = '\t'*self.nbTabs
         strucTypeStr = pre + '<StructuralType '
-        for argument, value in self.data.iteritems():
+        for argument, value in self.data.items():
             strucTypeStr += '{}="{}" '.format(argument, value)  
         strucTypeStr += '>\n'
 
