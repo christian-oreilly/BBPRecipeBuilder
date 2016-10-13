@@ -5,6 +5,7 @@ Created on Tue Jul 26 12:35:40 2016
 @author: oreilly
 """
 
+import pandas as pd
 
 class ElectroType:
     def __init__(self, id, percentage):
@@ -68,8 +69,10 @@ class Layer:
 
     
     
+class Connection:
+    pass    
     
-class RecipeWrite:
+class RecipeWriter:
     def __init__(self, layers, neuronTypes, excludedPathways=[]):
         self.interButtonIntervalMinDist   = 5.0
         self.interButtonIntervalMaxDist   = 7.0
@@ -81,6 +84,11 @@ class RecipeWrite:
         self.neuronTypes                  = neuronTypes
         self.excludedPathways             = excludedPathways
         
+        # Matrix of connections. Should be addressed as 
+        # self.connections.loc[neuron_from, neuron_to]
+        self.connections                  = pd.DataFrame(columns=neuronTypes, 
+                                                         index=neuronTypes, 
+                                                         dtype=Connection)
 
     def getTouchRuleStr(self, nbTabs = 1):
         # this script receives a tuple with all the m-types and produces the TouchRules
@@ -95,6 +103,7 @@ class RecipeWrite:
         # excluded pathways
         # ex = (('AA', 'Ivy'), ('AA', 'PVBC'), ('AA', 'CCKBC'), ('AA', 'BS'), ('AA', 'AA'), ('IS1', 'PC'))
 
+        """
         rules = "\t"*nbTabs + "<TouchRules>\n"
         for neuron1 in self.neuronTypes:
             for neuron2 in self.neuronTypes:
@@ -104,6 +113,23 @@ class RecipeWrite:
             rules +=  '\n'
         rules += "\t"*nbTabs + "</TouchRules>\n"        
         return rules
+        """
+        
+        rules = "\t"*nbTabs + "<TouchRules>\n"
+        for neuron1 in self.neuronTypes:
+            for neuron2 in self.neuronTypes:
+                if not self.connections[neuron1, neuron2] is None :
+                    
+                    # self.connections[neuron1, neuron2] ...
+                    rules += '\t'*(nbTabs+1) + '<touchRule fromLayer="*" fromMType="' + neuron1 + \
+                              '" toLayer="*" toMType="' + neuron2 + '" type="dendrite"/>\n'
+            rules +=  '\n'
+        rules += "\t"*nbTabs + "</TouchRules>\n"        
+        return rules
+
+
+
+
 
     def getHeader(self):
         header = """<?xml version="1.0" encoding="iso-8859-1"?>
