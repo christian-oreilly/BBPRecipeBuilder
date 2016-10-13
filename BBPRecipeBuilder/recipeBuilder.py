@@ -70,7 +70,15 @@ class Layer:
     
     
 class Connection:
-    pass    
+    
+    def __init__(self, neuronTypePresynap, neuronTypePostsynap):
+        self.neuronTypePresynap  = neuronTypePresynap
+        self.neuronTypePostsynap = neuronTypePostsynap
+    
+    def getTouchRule(self):
+        return '<touchRule fromLayer="*" fromMType="' + self.neuronTypePresynap + \
+                          '" toLayer="*" toMType="' + self.neuronTypePostsynap  + \
+                          '" type="dendrite"/>'
     
 class RecipeWriter:
     def __init__(self, layers, neuronTypes, excludedPathways=[]):
@@ -118,11 +126,8 @@ class RecipeWriter:
         rules = "\t"*nbTabs + "<TouchRules>\n"
         for neuron1 in self.neuronTypes:
             for neuron2 in self.neuronTypes:
-                if not self.connections[neuron1, neuron2] is None :
-                    
-                    # self.connections[neuron1, neuron2] ...
-                    rules += '\t'*(nbTabs+1) + '<touchRule fromLayer="*" fromMType="' + neuron1 + \
-                              '" toLayer="*" toMType="' + neuron2 + '" type="dendrite"/>\n'
+                if not self.connections.iloc[neuron1, neuron2] is None :
+                    rules += '\t'*(nbTabs+1) + self.connections.iloc[neuron1, neuron2].getTouchRule() + "\n"
             rules +=  '\n'
         rules += "\t"*nbTabs + "</TouchRules>\n"        
         return rules
