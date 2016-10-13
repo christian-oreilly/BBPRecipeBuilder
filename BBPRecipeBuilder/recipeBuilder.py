@@ -6,6 +6,7 @@ Created on Tue Jul 26 12:35:40 2016
 """
 
 import pandas as pd
+import numpy as np
 
 class ElectroType:
     def __init__(self, id, percentage):
@@ -126,7 +127,7 @@ class RecipeWriter:
         rules = "\t"*nbTabs + "<TouchRules>\n"
         for neuron1 in self.neuronTypes:
             for neuron2 in self.neuronTypes:
-                if not self.connections.loc[neuron1, neuron2] is None :
+                if not np.isnan(self.connections.loc[neuron1, neuron2]) :
                     rules += '\t'*(nbTabs+1) + self.connections.loc[neuron1, neuron2].getTouchRule() + "\n"
             rules +=  '\n'
         rules += "\t"*nbTabs + "</TouchRules>\n"        
