@@ -126,8 +126,8 @@ class RecipeWriter:
         rules = "\t"*nbTabs + "<TouchRules>\n"
         for neuron1 in self.neuronTypes:
             for neuron2 in self.neuronTypes:
-                if not self.connections.iloc[neuron1, neuron2] is None :
-                    rules += '\t'*(nbTabs+1) + self.connections.iloc[neuron1, neuron2].getTouchRule() + "\n"
+                if not self.connections.loc[neuron1, neuron2] is None :
+                    rules += '\t'*(nbTabs+1) + self.connections.loc[neuron1, neuron2].getTouchRule() + "\n"
             rules +=  '\n'
         rules += "\t"*nbTabs + "</TouchRules>\n"        
         return rules
