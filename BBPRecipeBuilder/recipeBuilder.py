@@ -127,9 +127,10 @@ class RecipeWriter:
         rules = "\t"*nbTabs + "<TouchRules>\n"
         for neuron1 in self.neuronTypes:
             for neuron2 in self.neuronTypes:
-                if not np.isnan(self.connections.loc[neuron1, neuron2]) :
+                if isinstance(self.connections.loc[neuron1, neuron2], Connection): # not np.isnan(self.connections.loc[neuron1, neuron2]) :
                     rules += '\t'*(nbTabs+1) + self.connections.loc[neuron1, neuron2].getTouchRule() + "\n"
-            rules +=  '\n'
+                
+            #rules +=  '\n'
         rules += "\t"*nbTabs + "</TouchRules>\n"        
         return rules
 
@@ -188,6 +189,8 @@ class RecipeWriter:
         ## <mTypeRule from="MTYPE" to="MTYPE" bouton_reduction_factor= "1" cv_syns_connection= "0.1" mean_syns_connection= "NSYNS"/>
 
         connectStr = '\t'*nbTabs + '<ConnectionRules>\n'
+        
+        """
         #for i in range(nrows-1):
         #    for j in range(ncols-1):
         #        connectStr += '\t'*(nbTabs+1) + '<mTypeRule from="' + str(worksheet.cell_value(i+1, 0)) + '" to="' \
@@ -209,7 +212,7 @@ class RecipeWriter:
         connectStr += '<mTypeRule from="L*_TC" to="L*_IN" bouton_reduction_factor= "1" cv_syns_connection= "1" mean_syns_connection= "1.0"/>\n'
         
         connectStr += '<mTypeRule from="L*_TC" to="L*_IN" bouton_reduction_factor= "1" cv_syns_connection= "1" mean_syns_connection= "1.0"/>\n'
-        
+        """
         
         connectStr += '\t'*nbTabs + '</ConnectionRules>\n'
         return connectStr
